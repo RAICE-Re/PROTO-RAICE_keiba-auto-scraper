@@ -1,0 +1,31 @@
+name: Keiba Scraper 09:30
+
+on:
+  schedule:
+    # 日本時間の9:30（UTCの0:30）に実行
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - run: pip install -r requirements.txt
+      
+      - name: Run 9:30 Scraper
+        run: python Proto_raice_re_0930.py
+        
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add *.csv
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Add 09:30 Re_odds data" && git push)
