@@ -1,9 +1,9 @@
 name: Keiba Scraper 09:30
 
 on:
-  schedule:
+  # schedule:
     # 日本時間の9:30（UTCの0:30）に実行
-    - cron: '30 0 * * *'
+    # - cron: '30 0 * * *'
   workflow_dispatch:
 
 jobs:
